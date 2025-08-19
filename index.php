@@ -1,10 +1,22 @@
 <?php
 
+session_start();
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 $host = "127.0.0.1";
-$user = "root";
-$pass = "";
-$db = "pkl";
+$user = "webpkl";
+$pass = "pklpassword";
+$db = "webpkldb";
 $conn = mysqli_connect($host, $user, $pass, $db);
+
+// Memeriksa koneksi
+if ($conn->connect_error) {
+  die("Koneksi gagal: " . $conn->connect_error);
+  echo "failed conn";
+}
 
 $pesan_sukses = "";
 
@@ -211,7 +223,7 @@ $data = mysqli_query($conn, "SELECT * FROM pertanyaan ORDER BY tanggal DESC");
       <div class="row">
         <div class="col-lg-6 offset-lg-3">
           <div class="section-heading  wow bounceIn" data-wow-duration="1s" data-wow-delay="0.2s">
-            <h2> Certificates </h2>
+            <h2> Certificates isra ganteng </h2>
           </div>
         </div>
       </div>
@@ -338,7 +350,7 @@ $data = mysqli_query($conn, "SELECT * FROM pertanyaan ORDER BY tanggal DESC");
         <td><?= htmlspecialchars($row['name']) . " " . htmlspecialchars($row['surname']) ?></td>
         <td><?= htmlspecialchars($row['your_email']) ?></td>
         <td><?= nl2br(htmlspecialchars($row['messages'])) ?></td>
-        <td><?= $row['tanggal'] ?></td>
+         <td><?= date("d-m-Y", strtotime($row['tanggal'])) ?></td>
     </tr>
     <?php endwhile; ?>
 </table>
